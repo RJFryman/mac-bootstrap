@@ -21,6 +21,13 @@ else
   echo "==> Homebrew: already installed"
 fi
 
+# Ensure brew is in PATH for this session
+if [ -f /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f /usr/local/bin/brew ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # Clone or update the repo
 BOOTSTRAP_DIR="$HOME/Documents/Code/mac-bootstrap"
 mkdir -p "$(dirname "$BOOTSTRAP_DIR")"
