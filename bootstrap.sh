@@ -63,28 +63,8 @@ if command -v gh &>/dev/null && ! gh auth status &>/dev/null; then
   echo ""
 fi
 
-# Configure shell
-ZSHRC="$HOME/.zshrc"
-SOURCE_LINE="source \"$BOOTSTRAP_DIR/dotfiles/zshrc_custom\""
-
-# Set Oh My Zsh theme to muse
-if [ -f "$ZSHRC" ]; then
-  if grep -q 'ZSH_THEME=' "$ZSHRC"; then
-    sed -i '' 's/^ZSH_THEME=.*/ZSH_THEME="muse"/' "$ZSHRC"
-    echo "==> Oh My Zsh theme: set to muse"
-  fi
-fi
-
-# Add source line for custom config if not already present
-if [ -f "$ZSHRC" ]; then
-  if ! grep -qF "$SOURCE_LINE" "$ZSHRC"; then
-    echo "" >> "$ZSHRC"
-    echo "# mac-bootstrap custom config" >> "$ZSHRC"
-    echo "$SOURCE_LINE" >> "$ZSHRC"
-    echo "==> Shell config: linked custom config"
-  else
-    echo "==> Shell config: already linked"
-  fi
-fi
+# Install zshrc
+echo "==> Installing .zshrc..."
+cp "$BOOTSTRAP_DIR/zshrc" "$HOME/.zshrc"
 
 echo "==> mac-bootstrap complete."
