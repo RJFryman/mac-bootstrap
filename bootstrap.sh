@@ -22,11 +22,7 @@ else
 fi
 
 # Ensure brew is in PATH for this session
-if [ -f /opt/homebrew/bin/brew ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [ -f /usr/local/bin/brew ]; then
-  eval "$(/usr/local/bin/brew shellenv)"
-fi
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 # Clone or update the repo
 BOOTSTRAP_DIR="$HOME/Documents/Code/mac-bootstrap"
