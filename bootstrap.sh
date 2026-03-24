@@ -21,11 +21,21 @@ else
   echo "==> Homebrew: already installed"
 fi
 
+# Clone or update the repo
+BOOTSTRAP_DIR="$HOME/Documents/Code/mac-bootstrap"
+mkdir -p "$(dirname "$BOOTSTRAP_DIR")"
+if [ -d "$BOOTSTRAP_DIR/.git" ]; then
+  echo "==> Updating mac-bootstrap repo..."
+  git -C "$BOOTSTRAP_DIR" pull
+else
+  echo "==> Cloning mac-bootstrap repo..."
+  git clone https://github.com/RJFryman/mac-bootstrap.git "$BOOTSTRAP_DIR"
+fi
+
 # Run Brewfile
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ -f "$SCRIPT_DIR/Brewfile" ]; then
+if [ -f "$BOOTSTRAP_DIR/Brewfile" ]; then
   echo "==> Running brew bundle..."
-  brew bundle --file="$SCRIPT_DIR/Brewfile"
+  brew bundle --file="$BOOTSTRAP_DIR/Brewfile"
 else
   echo "==> No Brewfile found, skipping"
 fi
