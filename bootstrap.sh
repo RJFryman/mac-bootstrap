@@ -51,4 +51,40 @@ else
   echo "==> Oh My Zsh: already installed"
 fi
 
+# Configure git
+git config --global user.name "Robert Fryman"
+git config --global user.email "robert.fryman@gmail.com"
+echo "==> Git config: set"
+
+# Remind to authenticate if gh is not logged in
+if command -v gh &>/dev/null && ! gh auth status &>/dev/null; then
+  echo ""
+  echo "==> NOTE: Run 'gh auth login' to set up GitHub SSH access"
+  echo ""
+fi
+
+# Configure shell
+ZSHRC="$HOME/.zshrc"
+SOURCE_LINE="source \"$BOOTSTRAP_DIR/dotfiles/zshrc_custom\""
+
+# Set Oh My Zsh theme to muse
+if [ -f "$ZSHRC" ]; then
+  if grep -q 'ZSH_THEME=' "$ZSHRC"; then
+    sed -i '' 's/^ZSH_THEME=.*/ZSH_THEME="muse"/' "$ZSHRC"
+    echo "==> Oh My Zsh theme: set to muse"
+  fi
+fi
+
+# Add source line for custom config if not already present
+if [ -f "$ZSHRC" ]; then
+  if ! grep -qF "$SOURCE_LINE" "$ZSHRC"; then
+    echo "" >> "$ZSHRC"
+    echo "# mac-bootstrap custom config" >> "$ZSHRC"
+    echo "$SOURCE_LINE" >> "$ZSHRC"
+    echo "==> Shell config: linked custom config"
+  else
+    echo "==> Shell config: already linked"
+  fi
+fi
+
 echo "==> mac-bootstrap complete."

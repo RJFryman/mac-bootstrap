@@ -1,0 +1,34 @@
+# mac-bootstrap managed shell config
+# Do not edit directly — update via the mac-bootstrap repo
+
+# rbenv
+eval "$(rbenv init - zsh)"
+
+# Aliases
+alias prog="cd ~/Documents/Code/"
+alias harmony="cd ~/Documents/Code/harmony"
+
+# GPG
+export GPG_TTY=$(tty)
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# fnm (Node version manager)
+eval "$(fnm env --use-on-cd)"
+
+# OpenClaw Completion
+source <(openclaw completion --shell zsh)
+
+# Maestro
+export PATH="$PATH:$HOME/.maestro/bin"
+
+# Java 17 for Maestro
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+
+# Local bin
+export PATH="$HOME/.local/bin:$PATH"
