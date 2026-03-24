@@ -30,4 +30,12 @@ else
   echo "==> No Brewfile found, skipping"
 fi
 
+# Install Oh My Zsh if needed
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "==> Installing Oh My Zsh..."
+  RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  echo "==> Oh My Zsh: already installed"
+fi
+
 echo "==> mac-bootstrap complete."
