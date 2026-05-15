@@ -43,6 +43,14 @@ else
   echo "==> No Brewfile found, skipping"
 fi
 
+# Run per-project Brewfiles
+for project_brewfile in "$BOOTSTRAP_DIR"/projects/*/Brewfile; do
+  [ -f "$project_brewfile" ] || continue
+  project_name="$(basename "$(dirname "$project_brewfile")")"
+  echo "==> Running brew bundle for project: $project_name"
+  brew bundle --file="$project_brewfile"
+done
+
 # Install Oh My Zsh if needed
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "==> Installing Oh My Zsh..."

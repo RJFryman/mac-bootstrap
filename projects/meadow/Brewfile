@@ -1,0 +1,4 @@
+brew "flyctl"
+brew "node"
+brew "elixir"
+brew "postgresql@15"
